@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int max = 0;
+        int len=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            
+            if(nums[i])//这个条件很精妙，题目规定数组中元素非0即1，所以可以通过当前数组元素是否为非零值来判断是否是连续元素
+            //若使用if(nums[i]==nums[i+1]),问题有两点：一数组越界，二统计值比实际值少一。
+            {
+                
+                
+                    ++len;
+                    if(max<len)
+                    {
+                    max=len;
+                    }
+                }
+            
+            else
+            {
+                len = 0;
+            }
+        }
+        return max;
+
+
+    }
+};
