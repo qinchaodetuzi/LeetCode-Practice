@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        
+        vector<int> res(2);
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        int prev = 0;
+        for(int i=0;i<n;i++)
+        {
+            int curr = nums[i];
+            if(prev==curr)
+            {
+                res[0]=curr;
+            }else if(curr-prev>1)
+            {
+                res[1]=curr-1;
+            } 
+            prev=curr;           
+        }
+        if(nums[n-1]!=n)
+        {
+            res[1]=n;
+        }
+        return res;
+    }
+};
+//题目数据从1到n，所以丢失处前后数据差值为2，而正常情况下前后数据差值为1。
+//若1丢失，我们可以通过将prev定义为0 ，这样也可以求出
+//n丢失无法通过计算得出，可以直接比较num[n-1]是否等于1得出。
