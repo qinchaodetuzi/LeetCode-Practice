@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        int n = nums.size();
+        for (int& num: nums) {
+            if (num <= 0) {
+                num = n + 1;
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            int num = abs(nums[i]);
+            if (num <= n) {
+                nums[num - 1] = -abs(nums[num - 1]);
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] > 0) {
+                return i + 1;
+            }
+        }
+        return n + 1;
+    }
+};
+//鸽笼原理，原地哈希表。把数组看作为哈希表。由题意可知，缺失的整数必定在[1,n+1]区间内。所以我们将所有不在此区间内的数赋值为n+1。只关注1-n之间的数。对这些数进行原地哈希，将对应的值置为负。
+//再进行一次遍历，若出现整数则说明此元素对应下标没有被哈希到，即该下标值所对应的元素缺失。
